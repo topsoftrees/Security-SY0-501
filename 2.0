@@ -1,0 +1,275 @@
+# 2.0
+
+**2.1 Install and configure network components, both hardware- and software-based, to support organizational security**
+
+- **VPN concentrator -**
+    - **IPSec -** not a VPN, actually an encryption protocol - port 500 (IKE) - for non-IP transmissions because it handle all auth, encryp, and key management from TCP/IP
+        - **AH -** auth of data and IP header uses hash - no encryption and not good with NAT/PAT
+        - **ESP -** encrypt. (confidentiality), auth, and connectionless integrity
+    - **TLS (VPN) -** works with networks that are heavily NAT encoded and with other protocols - OpenVPN, OpenConnect
+- **NIPS/NIDS -**
+    - **Heuristic/behavioral -** looking for compromise, not attack - low false positive
+    - **Anomaly -** compare to baseline - high false positives
+- **Router -** ACLs, antispoofing, NAT
+- **Switch -** port security, layer 2 vs layer 3 (MAC of same network vs IP between 2 networks), loop prevention, flood guard
+- **Proxy -**
+    - **Forward -** forwards request for client and caching to reduce bandwidth
+    - **Reverse -** installed on server side - receives request on behalf of user
+    - **Transparent -** accepts and forwards requests without modifying them - no client side config
+- **Load balancer -**
+    - **Affinity -** looks at IP and sends it to the same server
+    - **Virtual IPs -** assigned IP and port number that way it can reference multiple servers
+- **Access Point -**
+    - **Fat -** standalone
+    - **Thin -** controller-based
+    - **Controller-based -** centralized management, better management for adjacent APs, better load balancing and deployment, easier for NAC
+    - **Standalone-based -** simpler than controller-based
+- **SIEM -** Sec Info and Event Mgmt - classifies and analyzes sec data from numerous resources
+    - **Aggregation, correlation, automated altering and triggers, time synch, event deduplication, logs/WORM**
+    - **TACALE**
+- **NAC -**
+    - **Dissolvable -** deployed when needed and removed after use - minimum impact than agentless
+    - **Permanent -**  pre-deployed to the endpoint
+    - **Host-health checks -** NAC using health agents to make sure antivirus is up-to-date and restrict access of unhealthy clients
+    - **Agent -** stored on host machine
+    - **Agentless -** code on network then deployed when requested
+- **Bridge -** network segregating device on layer 2 - interconnecting two or more physically separated network segments
+- **SSL/TLS accelerators -** between web server and internet to offloading SSL/TLS encryption and decryption from server to device to accelerate the encryption/decryption
+- **SSL decryptors -** opens SSL/TLS traffic using MITM, screens the traffic and re-encrypts it - prevents encrypted attack
+- **Media gateway -** handles voice and video signals and translates them to protocols used in that network
+- **Hardware security module -** manages and stores RSA encryption keys - peripheral device connected USB or network connection
+
+**2.2 Given a scenario, use appropriate software tools to assess the security posture of an organization**
+
+- **Protocol analyzer -** captures, displays, and analyzes network packets - Wireshark
+- **Network scanners -** scans network for live hosts, ports, and services - nmap and Zenmap
+    - **Rogue system detection -** detect unknown devices on network
+    - **Network mapping -** shows how devices are connected to one another
+- **Wireless scanners/cracker -** scans who is accessing and what they are accessing - Kismet and NetStumbler
+- **Vulnerability scanner -** Nessus
+- **Configuration compliance scanner -** establish baseline and compare new systems to the baseline
+- **Exploitation frameworks -** Metasploit
+- **Banner grabbing -** gain info of remote servers
+- **Passive vs active -**
+    - **Passive -** do not interact with network as to disrupt business operations
+    - **Active -** interact with network and disrupt business operations
+- **Command line tools**
+    - **ping –** test connectivity to remote server - see if another device is available - ICMP - troubleshooting
+
+    ```bash
+    # ping IPaddressOfTheDeviceYouWantToSeeIsAvailable
+    # ping website
+
+    ping 8.8.8.8
+    PING 8.8.8.8 (8.8.8.8): 56 data bytes
+    64 bytes from 8.8.8.8: icmp_seq=0 ttl=116 time=25.931 ms
+    64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=25.129 ms
+    64 bytes from 8.8.8.8: icmp_seq=2 ttl=116 time=24.289 ms
+    64 bytes from 8.8.8.8: icmp_seq=3 ttl=116 time=24.846 ms
+    ..
+    --- 192.168.50.80 ping statistics ---
+    8 packets transmitted, 8 packets received, 0.0% packet loss
+    round-trip min/avg/max/stddev = 3.219/25.690/172.375/55.458 ms
+    ```
+
+    - **netstat –** shows active TCP/IP connections, routing tables, and protocols - network statistics
+
+    ```bash
+    netstat -a # show all active connections
+    netstat -b # shows binaries (Windows)
+    netstat -n # only shows IPs not resolve names
+
+    Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)    
+    tcp4       0      0  192.168.50.2.52754     17.253.21.205.443      ESTABLISHED
+    tcp4       0      0  192.168.50.2.52753     172.217.6.98.443       ESTABLISHED
+    tcp4       0      0  127.0.0.1.49281        127.0.0.1.52752        ESTABLISHED
+    tcp4       0      0  127.0.0.1.52752        127.0.0.1.49281        ESTABLISHED
+    ```
+
+    - **tracert –** lists routers between 2 systems - **traceroute** - route of packet to destination - uses ICMP Time to Live Exceeded (not always)
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ traceroute -q 1 8.8.8.8 #sends a single frame it sends the time to live change and sending it to google's DNS server
+    traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
+     1  router.asus.com (192.168.50.1)  2.523 ms
+     2  142.254.158.209 (142.254.158.209)  10.213 ms
+     3  agg62.wotnoh1002h.midwest.rr.com (65.25.145.165)  28.905 ms
+     4  agg34.clmcohib01r.midwest.rr.com (65.29.17.224)  12.478 ms
+     5  be27.clevohek01r.midwest.rr.com (65.29.1.38)  19.278 ms
+     6  ge-3-3-0.cr0.sjc10.tbone.rr.com (66.109.6.12)  25.381 ms
+     7  bu-ether11.asbnva1611w-bcr00.tbone.rr.com (66.109.6.30)  69.774 ms
+     8  72.14.215.104 (72.14.215.104)  25.331 ms
+     9  *
+    10  dns.google (8.8.8.8)  26.788 ms
+
+    # notice how the names were resolved? well we want the IPs instead
+    Saras-MBP:~ saravradenburg$ traceroute -q 1 -n 8.8.8.8 # excludes the DNS naming resolving
+    traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
+     1  192.168.50.1  2.463 ms
+     2  142.254.158.209  8.232 ms
+     3  65.25.145.165  20.679 ms
+     4  65.29.17.224  10.751 ms
+     5  65.29.1.38  23.508 ms
+     6  66.109.6.66  26.425 ms
+     7  66.109.6.30  30.727 ms
+     8  74.125.50.44  23.878 ms
+     9  *
+    10  8.8.8.8  25.501 ms
+    ```
+
+    - **nslookip/dig –** gather info from DNS servers, lookup names, and IP addresses - look up info from DNS server (canonical names, IP addresses, cache timers, etc.) - nslookup is deprecated, use dig
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ nslookup www.professormessor.com
+    Server:		192.168.50.1 # notice it is the same as below
+    Address:	192.168.50.1#53
+
+    Non-authoritative answer:
+    Name:	www.professormessor.com
+    Address: 64.98.145.30 # notice it is the same as below
+
+    Saras-MBP:~ saravradenburg$ dig www.professormessor.com
+
+    ; <<>> DiG 9.10.6 <<>> www.professormessor.com
+    ;; global options: +cmd
+    ;; Got answer:
+    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 40500
+    ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+    ;; OPT PSEUDOSECTION:
+    ; EDNS: version: 0, flags:; udp: 1280
+    ;; QUESTION SECTION:
+    ;www.professormessor.com.	IN	A # looking for address record from the website
+
+    ;; ANSWER SECTION:
+    www.professormessor.com. 889	IN	A	64.98.145.30  # notice it is the same as above
+    #889 is the cache
+
+    ;; Query time: 50 msec
+    ;; SERVER: 192.168.50.1#53(192.168.50.1) # notice it is the same as above
+    ;; WHEN: Fri Jul 03 10:01:35 EDT 2020
+    ;; MSG SIZE  rcvd: 68
+    ```
+
+    - **arp –** to identify a MAC from an IP - determine if there is a MITM
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ arp -a
+    router.asus.com (192.168.50.1) at 4:d9:f5:ec:17:8 on en0 ifscope [ethernet]
+    saras-mbp (192.168.50.2) at a4:5e:60:ee:5c:bb on en0 ifscope permanent [ethernet]
+    ? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]
+    ? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]
+    ```
+
+    - **ipconfig/ip/ifconfig –** shows TCP/IP config like IP address, subnet mask, default gateway, MAC address, DNS server, etc. - local IP address, hardware address
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ ifconfig en0
+    en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+    	options=400<CHANNEL_IO>
+    	ether a4:5e:60:ee:5c:bb 
+    	inet6 fe80::1c67:cab6:31d8:a14e%en0 prefixlen 64 secured scopeid 0x4 
+    	inet 192.168.50.2 netmask 0xffffff00 broadcast 192.168.50.255
+    	nd6 options=201<PERFORMNUD,DAD>
+    	media: autoselect
+    	status: active
+    ```
+
+    - **tcpdump –** command line packet analyzer like Wireshark - can load them into a protocol analyzer (pcap format)
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ sudo tcpdump
+    Password:
+    tcpdump: data link type PKTAP
+    tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+    listening on pktap, link-type PKTAP (Apple DLT_PKTAP), capture size 262144 bytes
+    10:08:02.385259 IP saras-mbp.52641 > 23.99.20.247.https: Flags [P.], seq 1563740210:1563741234, ack 2317944027, win 2048, options [nop,nop,TS val 349627972 ecr 1636645491], length 1024
+    10:08:02.386906 IP saras-mbp.57299 > router.asus.com.domain: 50662+ PTR? 2.50.168.192.in-addr.arpa. (43)
+    10:08:02.389054 IP router.asus.com.domain > saras-mbp.57299: 50662* 1/0/0 PTR Saras-MBP. (66)
+    10:08:02.389998 IP saras-mbp.50418 > router.asus.com.domain: 56564+ PTR? 247.20.99.23.in-addr.arpa. (43)
+    10:08:02.467208 IP router.asus.com.domain > saras-mbp.50418: 56564 NXDomain 0/1/0 (122)
+    10:08:02.468966 IP saras-mbp.59240 > router.asus.com.domain: 21631+ PTR? 1.50.168.192.in-addr.arpa. (43)
+    10:08:02.471030 IP router.asus.com.domain > saras-mbp.59240: 21631* 1/0/0 PTR router.asus.com. (72)
+    ```
+
+    - **nmap –** network scanner that finds all active hosts, addresses, and protocols - can determine OS without auth - service scan of devices on network
+
+    ```bash
+    Saras-MBP:~ saravradenburg$ nmap 192.168.50.1
+    Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-03 10:15 EDT
+    Nmap scan report for router.asus.com (192.168.50.1)
+    Host is up (0.0099s latency).
+    Not shown: 995 closed ports
+    PORT     STATE SERVICE
+    22/tcp   open  ssh # finds the port, TCP/UDP, state, and protocol it's using
+    53/tcp   open  domain
+    80/tcp   open  http
+    8443/tcp open  https-alt
+    9998/tcp open  distinct32
+
+    Nmap done: 1 IP address (1 host up) scanned in 0.27 seconds
+
+    # scanning the OS, must have root
+    Saras-MBP:~ saravradenburg$ sudo nmap -O 224.0.0.251
+    Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-03 10:16 EDT
+    Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+    Nmap done: 1 IP address (0 hosts up) scanned in 1.81 seconds
+
+    Saras-MBP:~ saravradenburg$ sudo nmap -O 192.168.50.1
+    Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-03 10:17 EDT
+    Nmap scan report for router.asus.com (192.168.50.1)
+    Host is up (0.0018s latency).
+    Not shown: 996 closed ports
+    PORT     STATE SERVICE
+    22/tcp   open  ssh
+    53/tcp   open  domain
+    80/tcp   open  http
+    8443/tcp open  https-alt
+    MAC Address: 04:D9:F5:EC:17:08 (Asustek Computer)
+    Device type: general purpose
+    Running: Linux 2.6.X
+    OS CPE: cpe:/o:linux:linux_kernel:2.6
+    OS details: Linux 2.6.23 - 2.6.38
+    Network Distance: 1 hop
+
+    OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    Nmap done: 1 IP address (1 host up) scanned in 3.16 seconds
+    ```
+
+    - **netcat –** banner grabbing tool that opens back door - "read" or "write" to the network - open a port and send or receive some traffic - can be setup as a backdoor (Ncat)
+
+    **2.3 Given a scenario, troubleshoot common security issues**
+
+    - **Certificate issues -** when the cert does not have the complete chain of trust to the trusted root and hangs which causes violations
+    - **Misconfigured devices -**
+        - **Access points -** can use ACL, RADIUS, or NAC for defining rules
+
+    **2.4 Given a scenario, analyze and interpret output from security technologies**
+
+    - **File integrity check -** comparing hash value
+    - **Advanced malware tools -** Yara
+    - **UTM -** all-in-one security
+    - **Web application firewall -** performs restrictions based on HTTP/HTTPS - provides load balancing
+
+    **2.5 Given a scenario, deploy mobile devices securely**
+
+    - **Connection methods -**
+        - **WiFi -** connect to SSID with Pre-Shared key
+        - **Bluetooth -** classic, high speed and low energy
+        - **NFC -**  (2 way) radio communication - ApplePay
+        - **ANT -** single connection device - Fitbit and app
+    - **Mobile device management -**
+        - **Context-aware authentication -** multiple forms of authentication
+        - **Storage segmentation -** store org data on mobile devices and split the device off
+        - Encrypt full device, data connection enabled, containerization
+    - **Enforcement and monitoring for -**
+        - **Firmware OTA updates -** update firmware OTA rather than connecting to LAN
+        - **WiFi direct** - devices connect without AP - doesn't always stay connect to network
+        - **Ad hoc -** multiple hops throughout network - uses network more heavily
+        - **Tethering -** bypass web security while still being connected to LAN
+        - **VDI -** virtual desktop that can be accessed from mobile device
+        - **VMI -** access VM without MDM or concern for org data
+
+    **2.6 Given a scenario, implement secure protocols**
+
+    - **DNS vs DHCP -** DNS: translate domain names to IP addresses and vice versa - DHCP: assigns IP addresses and relates IP information to the computer in the network
