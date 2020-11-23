@@ -1,0 +1,37 @@
+# 4.0
+
+    **4.1 Compare and contrast identity and access management concepts**
+
+    - **Federated -** auth between 2 or more non-homogeneous environments - disadvantage is transitive trust (security of one impacts the others)
+    - **SSO -** enhances security by only needing one set of creds
+    - **Transitive trust -** creates an indirect trust relationship - A trusts B and B trusts C then A trusts C
+
+    **4.2 Given a scenario, install and configure identity and access services**
+
+    - **LDAP (X.500) -** handle auth, authorization, and access to AD - query directories - TCP 636
+    - **Kerberos -** based on KDC for AS and TGS - more secure than RADIUS, TACACS, or LDAP - does not provide SSO but it can be enabled - good for time synch too
+    - **TACACS+ -** RADIUS but for Cisco - combines auth and auditing - has multifactor auth by using multiple challenge responses - it can interact with Kerberos and encrypt entire auth process (unlike RADIUS)
+    - **CHAP -** use username and password to auth - used in PPP and more secure than PAP - 3 way handshake to prevent replay attack and stops session hijacking
+    - **PAP -** sends password in cleartext
+    - **MSCHAP -** MS version of CHAP - client auths to server and server auths to client so mutual auth
+    - **RADIUS -** cross-platform - AAA - combines AAA - encrypts password but not entire auth process - UDP 1812/1813
+    - **SAML -** XML for exchange in auth and authorization - not good for mobile
+    - **OpenID Connect -** verify ID - then go to OAUTH
+    - **OAUTH -** uses OpenID Connect for auth then authorizes - SAML version for mobile
+    - **Shibboleth -** open source federated ID
+    - **Secure token** - auth over tokens
+    - **NTLM -** old Kerberos that used MD hashing
+
+    **4.3 Given a scenario, implement identity and access management controls**
+
+    - **Access controls models -**
+        - **MAC -** security labels to determine access, cannot override since they are based on the OS - VERY secure
+        - **DAC -** every object has an owner and the owner has full control - more user friendly than RBAC
+        - **ABAC -** parameters (location, etc) to grant access
+        - **Role-based access control -** creates a role for user then access access to role - easy to implement
+        - **Rule-based access controls -** based on ACLs or approved instructions
+    - **Certificate-based authentication -**
+        - **CAC -** DoD and contractors for access and physical access
+        - **PIV -** smart card with photo ID
+        - **IEEE 802.1x** - auth when connecting to a specific AP or port, then their ID is based on cert or creds which is confirmed by RADIUS server
+    - **File system security -** use NTFS
