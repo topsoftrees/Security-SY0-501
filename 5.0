@@ -1,0 +1,88 @@
+# 5.0
+
+    **5.1 Explain the importance of policies, plans, and procedures related to organizational security**
+
+    - **Standard operating procedure -** step-by-step instructions employees can use to perform common tasks
+    - **Agreement types -**
+        - **BPA -** relationship and obligations between partners - good to settle conflict
+        - **SLA -** performance expectations from vendors and customer
+        - **ISA -** technical and security requirements for a secure connection
+        - **MOU/MOA -** not as strict as SLA or ISA but still has the same level of importance
+    - **Personnel management -**
+        - **Role-based awareness training -**
+            - **Data owner -** classify the data
+            - **Systems administrator -** responsible for overall security
+            - **System owner -** high level executive with overall responsibility - they should receiving training on how the systems work
+            - **User -** train them
+            - **Privileged user  -** admin rights
+            - **Executive user -** need high-level briefings related to risk
+
+    **5.2 Business impact analysis concepts**
+
+    - **RTO (Recovery Time Objective) -** how long it can take to restore a system after an outage
+    - **RPO (Recovery Point Objective) -** point where data loss is acceptable - anything past is unacceptable
+    - **MTBF (Mean time between failures)**
+    - **MTTR (Mean time to restore/recovery)**
+    - **MTTF (Mean time to failure)**
+    - **Privacy impact assessment -** identify potential risks related to PII - comply with laws and regs
+    - **Privacy threshold assessment -** analysis if PII was collected and maintained by a system
+
+    **5.3 Explain risk management processes and concepts**
+
+    - **Risk assessment -**
+        - **SLE -** single loss expectancy - based on exposure factor (EF) and asset value
+        - **ALE -** annual loss expectancy - = SLE *ARO
+        - **ARO -** annualized rate of occurrence
+        - **Risk register -** info on risks
+
+    **5.4 Given a scenario, follow incident response procedures**
+
+    - **Incident response process -**
+        - **Preparation, identification, containment, eradication, recovery, lesson's learned**
+
+    **5.5 Basic concepts of forensices**
+
+    - **Order of volatility -**
+        1. CPU cache & register
+        2. Routing tables, ARP cache, process tables, kernel stats
+        3. Live network connections and data flow
+        4. RAM
+        5. Temp files, swap or paging files
+        6. Hard drive data
+        7. Logs stored on remote systems
+        8. Archived media
+    - **Data acquisition -** capture system image, network traffic and logs, capture video, record time offset, take hashes, screenshots, witness interviews
+
+    **5.6 Explain disaster recovery and continuity of operations concepts**
+
+    - **Backup concepts -**
+        - **Differential -** backs up data that changed since last full backup
+        - **Incremental -** backs up data that changed since last full backup or last incremental
+
+    **5.7 Compare and contrast various types of controls**
+
+    - **Deterrent -** discourage attacker - law, warning sign, lights, login banner (only authorized)
+    - **Preventive -** mantrap prevents tailgating, firewall, lockout policies
+    - **Detective -** detect breach - IDS, motion detection
+    - **Corrective -** post event effort to minimize extent of damage
+    - **Compensating -** restore using different methods - backups
+    - **Technical -** aka logical control - technology implementation
+    - **Administrative -** policy, procedure, testing
+    - **Physical -** prevents physical action from occurring
+
+    **5.8 Given a scenario, carry out data security and privacy practices**
+
+    - **Data destruction and media sanitization -**
+        - **Burning, shredding,**
+        - **Pulping -** puree paper
+        - **Pulverizing -** sledge hammer destroying
+        - **Degaussing -** electomagnetic removal
+        - **Purging -** general term for removing sensitive data
+        - **Wiping -** overwriting
+    - **Data sensitivity labeling and handling -**
+        - **Proprietary -** data related to the owner
+    - **Data roles -**
+        - **Owner -** responsible for the data
+        - **Steward -** responsible for accuracy, privacy, and sensitivity labels
+        - **Custodian -** routine tasks on the data and sets security controls
+        - **Privacy officer -** comply with laws, set policies, processes, and procedure
