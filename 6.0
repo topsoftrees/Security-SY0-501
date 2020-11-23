@@ -1,0 +1,65 @@
+ #6.0
+
+        **6.1 Compare and contrast basic concepts of cryptography** 
+
+        - **Symmetric algorithms -** same key to encrypt/decrypt - RADIUS
+        - **Modes of operation -** ECB, GCM, etc
+        - **Asymmetric algorithms -** use public and private keys - requires cert and PKI
+        - **Hashing -** string of characters sent through one way function
+        - **Salt -** adds extra characters after being hashed
+        - **IV -** adding an arbitrary number to the ciphertext - ex: IV = 24bits and encryption key is 40bits so whole key can be 64bits (both parties know the IV length)
+        - **Nonce -** add a PRNG then if you want to do it again, another number is generated
+        - **Elliptic curve -** less computing power - ECC is like RSA but stronger ****
+        - **Key exchange -** used for exchanging symmetric key - use out-of-band or offline so use asymmetric encryption or more encryption to encrypt the key to transfer over the network
+        - **Digital signatures -** provides integrity and non-repudiation - creates data
+        - **Diffusion -** small change in plaintext means great change is ciphertext
+        - **Confusion -** huge difference between ciphertext and plaintext
+        - **Stream vs block -** stream is bit by bit (OTP) and block is blocks of bits
+        - **Key strength -** larger key has more entropy
+        - **Session keys -** server sends a public key, client sent encrypted random key with the symmetric key for the other person, the server decrypts with its private asymmetric key
+        - **Ephermeral key -** new key is generated with each new session
+        - **Secret algorithm -** private algorithm that reviews cannot see
+        - **Data-in-transit -** sent over network - encrypt with protocols
+        - **Data-at-rest -** data stored on a medium - encrypt with protocols
+        - **Data-in-use -** CPU processing - cleartext
+        - **Random/psedo-random number generator -** used in symmetric (AES, DES, 3DES, Blowfish, and Twofish) and asymmetric (RSA, DH, and ECC)
+        - **Key stretching -** increase security like salting or multiple rounds of hash
+        - **Perfect forward secrecy -** assurances that keys will not be compromised by generating a unique session key for every session initiated by the user so if one gets compromised, the other will not
+        - **Common use cases -**
+            - **Low power devices -** ECC
+            - **Low latency -** process real time data - stream ciphers
+            - **High resiliency -** ability to quickly recovery
+            - **Supporting confidentiality -** encryption
+            - **Supporting integrity -** hashing
+            - **Supporting obfuscation -** encryption and steganography
+            - **Supporting authentication -** digital signatures
+            - **Supporting non-repudiation -** digital signatures
+
+        **6.2 Explain cryptography algorithms and their basic characteristics** 
+
+        - **Symmetric algorithms - "ES" and fish**
+            - **AES -** standard - block - 128 bit - less resource extensive - patent
+            - **DES -** deprecated - 64bit
+            - **3DES -** 3 keys for DES - 64 bit
+            - **RC4 -** deprecated for stream cipher for WEP
+            - **Blowfish -** 64 bit of AES - no patent
+            - **Twofish -** version 2 of Blowfish - 128 bit - no patent
+        - **Cipher modes -** for block ciphers
+            - **CBC -** add IV for the first block then XOR the previous block
+            - **GCM -** authentication with CTR - normal for network protocols
+            - **ECB -** simple - same key used
+            - **CTR -** block but acts like a stream - pick the counter bit size then XOR
+        - **Asymmetric algorithms - "SA," Diffie, Elliptic, and PGP**
+            - **RSA -** encryption and authentication - prime numbers
+            - **DSA -** use digital signature with Diffie-Hellman
+            - **Diffie-Hellman -** devices pick public symmetric key and combine it with their private key and the two keys combine to get the symmetric key
+            - **Elliptic Curve -** low power devices
+            - **PGP/GPG -** web of trust for generating and distributing public key - Symmantec and GNU
+        - **Hashing algorithms - "MD," "SHA," and Hs**
+            - **MD5 -** deprecated - 128bit
+            - **SHA -** secure - standard - different bits
+            - **HMAC -** secure - email - hash with a key - integrity and authentication
+            - **RIPEMD -** new MD - message digest
+        - **Key stretching algorithms -**
+            - **BCRYPT -** multiple rounds of blowfish
+            - **PBKDF2 -** password-based key
