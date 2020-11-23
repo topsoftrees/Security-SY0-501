@@ -1,0 +1,90 @@
+# 1.0
+
+**1.1 Given a scenario, analyze indicators of compromise and determine the type of malware**
+
+- **Viruses -** attaches to host app - exe by user
+- Sparse infector virus - sparatic behavior
+- Multipartite virus - infects files and boot sector
+- **Worm -** self replicating and travels network
+- **Bots -** malware over network - DDoS
+- **RAT -** Trojan with a backdoor
+
+**1.2 Compare and contrast types of attacks**
+
+- **Social Engineering -**
+    - **Hoax -** false message
+    - **Watering Hole Attack -** watching website traffic then infecting the website
+- **Application/Service attacks -**
+    - **MITM -** placed between two clients - reads, modifies, and forwards to user
+    - **Injection -** inject SQL libraries to pass to back end server
+    - **XSS -** attackers include code in input and the script becomes part of web process
+    - **XSRF -** users perform action on web sites without their knowledge - session riding
+    - **ARP poisoning -** who has this IP? here is my MAC - fake MAC is used
+    - **Amplification -** massive DDoS attack
+    - **DNS poisoning -** modifies the IP of the website and replaces it with one of a malicious website
+    - **Man-in-the-browser -** intercept and manipulate comms. after the user leaves the website
+    - **Pass the hash -** takes hash from the protocol that does not encrypt it and uses it to authenticate
+    - **Hijacking and related attacks -**
+        - **Clickjacking -** user clicks something but they're actually clicking the hidden control which is malicious transport layer code
+        - **Session hijacking -** attacker gets SSID from cookies and impersonates the user
+    - **Driver Manipulation -**
+        - **Shimming -** putting a layer of code between driver and the OS to change OS not driver - DLL
+        - **Refactoring -** rewriting existing code while maintaining functionality
+    - Smurf attack - spoof IP address then the user gets flooded with ping requests and creates DoS
+    - Xmas attack - attacker scans port with specific tags then find out what protocols are used
+    - Pharming - web redirects to a fake site
+    - Spimming - instant message
+- **Wireless Attacks -**
+    - **IV -** random number used for WEP encryption
+    - **WPS -** press buttons or enter PIN to get into network
+    - **Bluejacking -** unsolicited messages sent to device
+    - **Bluesnarfing -** unauthorized access to device
+    - **RFID -** one way communication between RFID tag and RFID reader - ApplePay
+    - **NFC -** two way communication between RFID tag and RFID reader
+- **Cryptographic attacks -**
+    - **Birthday -** attackers steals hash and uses a list of passwords to find the hash
+    - **Rainbow tables -** database with password hashes - use long passwords or salting
+    - **Dictionary -** uses dictionary words to find password
+    - **Collision -** when two passwords have the same hash
+    - Hybrid - mix between dictionary and brute force
+    - **Downgrade -** force system to use weak encryption
+
+**1.4 Explain penetration concepts**
+
+- **Active reconnaissance -** interact with the network - can detect
+- **Passive reconnaissance -** open source - cannot be detected
+- **Pivot -** attacks one machine then moves their tools and attacks the network/system
+- **Black box -** no knowledge
+- **White box -** full knowledge (documentation, source code, logon details)
+- **Gray box -** some knowledge
+
+**Common Tools -**
+
+- **Nmap and Zenmap -** port scanner
+- **Wireshark -** traffic analyzer
+- **Nessus -** vulnerability scanner
+- **Tripwire -** file integrity checker
+- **Metasploitable -** Linux box for pen testing
+- **Back Orifice -** password sniffer and remote admin tool (undetected)
+- **OpenVAS -** Open Vulnerability Assessment Scanner
+- **Cain & Abel -** Windows password recovery, sniffer, brute force, cryptanalysis
+- **John the Ripper** - password cracker
+- **pfSense -** open source firewall/router
+- **Security Onion -** open source IDS
+- **SourceForge -** open source project management
+- **DBAN -** erase hard drives, desktops, laptops, servers
+- **Roo -**
+
+**1.5 Explain vulnerability scanning concepts**
+
+- **Credentialed scan -** scanning with admin creds
+- **Non-credentialed scan -** starting without admin creds then getting them through escalation
+
+**1.6 Explain the impact associated with types of vulnerabilities**
+
+- **Memory/buffer vulnerability**
+    - **Memory leak -** unclean memory resources that don't get cleared out
+    - **Integer overflow -** create numeric value that is too big for the system to handle
+    - **Buffer overflow -** input is larger than data can hold
+    - **Pointer dereference -** change memory location
+    - **DLL injection -** adding DLL libraries
