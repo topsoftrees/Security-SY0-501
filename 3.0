@@ -1,0 +1,109 @@
+# 3.0
+
+    **3.1 Explain use cases and purpose for frameworks, best practices and secure configuration guides** 
+
+    - **Defense-in-depth/layered security -**
+        - **Control diversity -**
+            - **Administrative -** policies, regulations, laws, system testing, and
+            security awareness
+            - **Technical -** firewalls, IDS, proxy server
+
+    **3.2 Given a scenario, implement network architecture concepts**
+
+    - **Zones/topologies -**
+        - **DMZ -** buffer zone - honeynets - implement every computer in DMZ as a
+        hardened device to resist attack (bastion host) - disable all ports and
+        services not used
+        - **NAT -** translates private IPs to public ones - static: single IP, dynamic:
+        available public IP based on load
+        - **Ad hoc -** connecting wireless devices without an AP
+    - **Segregation/segmentation/isolation -**
+        - **Physical -** SCADA operates on their own network**Logical VLAN -** create separate VLAN for routers, switches, VoIP phones, etc.
+        - **Air gaps** - not connected to any other system
+    - **Security device/technology placement -**
+        - **Proxies -** forwards request for services from client - reverse proxy
+        accepts requests from the internet
+        - **Taps and port mirror -** SPAN port or mirror port copies all frames and
+        sends for analysis - TAPs is a separate piece of hardware that copies all
+        packets and rebuilds them, use TAP instead of port mirroring for copying
+        100% traffic if network transfer rate is high
+        - Firewall - DMZ - Firewall - SSL Accelerator - Load Balancers - Web Server
+    - **SDN -** use logic/virtualization to route traffic instead of using hardware
+    routers or switches
+
+    **3.3 Given a scenario, implement secure systems design**
+
+    - **Hardware/firmware security -**
+        - **TPM -** hardware chip on motherboard that generates random numbers
+        and stores cryptographic keys - can be used for server auth - used in
+        clients
+        - **HSM -** removable device that generates, stores, and manages RSA keys -
+        can be used for HTTPS encryption keys - used in servers
+        - **UEFI/BIOS -** BIOS password management is the most fundamental
+        integrity technique - makes TPM more effective
+        - **Secure boot -** creates a hash of boot order and associated drivers, then
+        compares to previously stored hash which is stored locally on TPM -
+        boots the original drivers
+        - **Attestation -** same as secure boot but the file is saved in a remote system
+
+    **3.5 Explain the security implications of embedded systems**
+
+    - **SCADA/ICS -** systems within large facilities (power plants, water treatment
+    plants) - use secure layers, firmware version control, manual updates,
+    application firewalls, VLANs, ACLs, etc.
+    - **HVAC -** highest impact on availability
+    - **RTOS -** real time OS (no multitasking)
+
+    **3.6 Summarize secure application development and deployment concepts**
+
+    - **Development life-cycles models -**
+        - **Agile -** extreme programming: XP and frequent releases - scrum: 30 day
+        process
+    - **Secure DevOps -**
+        - **Immutable Systems -** provision servers to make changes since servers
+        can never be modified
+        - **Provisioning and deprovisioning -** provisioning: allocating resources needed - deprovisioning: removing
+    - **Secure coding techniques -**
+        - **Normalization -** reduce redundant data and improve database performance
+        - **Stored procedures -** SQL server side execution of stored procedures - save them so they can be run later instead of written from scratch
+        - **Code signing -** sign with digital signature
+        - **Server -** and client-side execution and validation - add input validation and server side validation but definitely server side
+    - **Code quality and testing -**
+        - **Static code analyzers -** analyze the code without exeing it
+        - **Dynamic analysis (fuzzing) -** sends random and bad data to the app to verify security and stability
+        - **Stress testing -** simulate a live environment to see how the app operates the load
+
+    **3.7 Summarize cloud and virtualization concepts**
+
+    - **Hypervisor -**
+        - **Type I -** runs directly on hardware - Hyper-V
+        - **Type II -** runs on the host OS - VirtualBox, VMware
+    - **VM sprawl avoidance -** non-physical servers are difficult to locate
+    - **VM escape protection -** attacker/malware escapes the VM to the underlying OS
+    - **Cloud deployment models -**
+        - **SaaS -** on-demand apps - Google mail, Google docs
+        - **PaaS -** for standard resourses - vendor supplies almost everything
+        - **IaaS -** vendors provide equipment and org is responsible for all OS updates, patches, and setup
+    - **VDI/VDE -** desktop can be accessed anywhere
+    - **CASB -** protect cloud infrastructure and data provided by the CSP
+    - **Security as a Service -** CSP provides security to cloud - antivirus, antimalware, IDS, event management, etc.
+
+    **3.8 Explain how resiliency and automation strategies reduce risk**
+
+    - **Non-persistence -** snapshots, revert to known state, rollback to known configuration, live boot media
+    - **Elasticity -** scale up and down
+    - **Scalability -** scale up
+    - **Distributive allocation -** allocates requests across a range of resources - like load balancing
+    - **Redundancy -** use multiple, independent elements to perform a critical function so that if one fails the other can step in
+    - **Fault tolerance -** design objective to reach high availability
+    - **High availability -** zero down time
+    - **RAID -**
+        - RAID-0: striped disk (great performance but if 1 fails, they all do),
+        RAID-1: mirrored disk (if 1 fails, drive 2 starts writing), RAID-5: block-striped
+        with error check (high availability), RAID-10: stripe of mirrors
+
+    **3.9 Explain the importance of physical security controls**
+
+    - **Protected distribution/protected cabling -** precent DoS
+    - **Air gap -** physical isolation of systems
+    - **Faraday cages -** prevents illicit monitoring of systems
